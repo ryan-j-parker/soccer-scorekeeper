@@ -1,5 +1,4 @@
-// import functions and grab DOM elements
-import { renderGame, renderTeam } from './render-utils.js';
+import { renderGame } from './render-utils.js';
 const currentGameEl = document.getElementById('current-game-container');
 const pastGamesEl = document.getElementById('past-games-container');
 
@@ -13,9 +12,6 @@ const teamOneLabel = document.getElementById('team-one-name');
 const teamTwoLabel = document.getElementById('team-two-name');
 const teamOneInput = document.getElementById('team-one-input');
 const teamTwoInput = document.getElementById('team-two-input');
-const leftButtons = document.getElementById('left-buttons');
-
-// create an array to hold on to the state of past games
 
 let name1 = '';
 let name2 = '';
@@ -31,87 +27,101 @@ nameFormButton.addEventListener('click', () => {
     teamOneLabel.textContent = teamOneName;
     teamTwoLabel.textContent = teamTwoName;
 
+    name1 = teamOneInput.value;
+    name2 = teamTwoInput.value;
+
+    const theGame = renderGame(name1, name2, score1, score2);
+    currentGameEl.append(theGame);
+
     teamOneInput.value = '';
     teamTwoInput.value = '';
 
-    renderGame(name1, name2, score1, score2);
-
+    refreshCurrentGameEl();
 });
 
 
 teamOneAddButton.addEventListener('click', () => {
-    // increment the current state for team one's score
+
     currentGameEl.textContent = '';
-    const team1Div = renderGame(name1, name2, score1, score2);
     score1++;
-    // refresh the current game element with new data by calling the appropriate function
 
-    currentGameEl.append(team1Div);
-
-    console.log(score1);
+    refreshCurrentGameEl();
 });
 
 teamTwoAddButton.addEventListener('click', () => {
-    // increment the current state for team two's score
+
     currentGameEl.textContent = '';
-    const team2Div = renderGame(name1, name2, score1, score2);
     score2++;
 
-    currentGameEl.append(team2Div);
-    // refresh the current game element with new data by calling the appropriate function
-
+    refreshCurrentGameEl();
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
-    // decrement the current state for team one's score
-    score1--;
-    // refresh the current game element with new data by calling the appropriate function
 
+    currentGameEl.textContent = '';
+    score1--;
+
+    refreshCurrentGameEl();
 });
 
 teamTwoSubtractButton.addEventListener('click', () => {
-    // decrement the current state for team two's score
+
+    currentGameEl.textContent = '';
     score2--;
-    // refresh the current game element with new data by calling the appropriate function
+
+    refreshCurrentGameEl();
 
 });
 
 finishGameButton.addEventListener('click', () => {
+    
+    const currentGameData = {
+        name1: `${name1}`,
+        name2: `${name2}`,
+        score1: `${score1}`,
+        score2: `${score2}`
+    };
 
-    // add the current game to an array of games in state
-    // it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
-    // for example, make an object like this: { name1: 'ducks', name2: 'bears' ,score1: 1, score2: 2 } 
-    // then push it to your array in state
-    // (be sure to make a new object. do not declare the object in global scope and mutate it for reuse. This would cause difficult bugs)
+    pastGames.push(currentGameData);
+
+    pastGamesEl.textContent = '';
 
     displayAllGames();
 
-    // reset the state to zero and empty strings
+    name1 = '';
+    name2 = '';
+    score1 = 0;
+    score2 = 0;
 
-    // refresh the current game element with new data by calling the appropriate function
+    currentGameEl.textContent = '';
+
+    refreshCurrentGameEl();
+
 });
 
 function refreshCurrentGameEl() {
+
     currentGameEl.textContent = '';
 
     teamOneLabel.textContent = name1;
     teamTwoLabel.textContent = name2;
 
-    // const gameEl = . . . 
-    // make a new gameEl here by calling renderGame with the approriate arguments. 
-    // Check the renderGame function declaration in render-utils.js to figure out the correct arguments to pass to this function 
-    // In render-utils.js as yourself: How many arguments does the function take? What order does it take them in?
-
+    const gameEl = renderGame(name1, name2, score1, score2);
+    
     gameEl.classList.add('current');
 
     currentGameEl.append(gameEl);
+
 }
 
 
 function displayAllGames() {
-    // clear out the past games list in the DOM
 
-    // loop through the past games in state
-    // use the renderGame function to render and append a past game for each past game in state
-    // again, review the renderGame function in render-utils.js. How many arguments does it take? What order does it take them in?
+    pastGamesEl.textContent = '';
+    
+    for (let game of pastGames) {
+        const gameEl = renderGame(game.name1, game.name2, game.score1, game.score2);
+        pastGamesEl.append(gameEl);
+    }
+    
 }
