@@ -187,11 +187,63 @@ p {
 }
 
 .right {
-    overflow: scroll;
+    overflow: auto;
+    background: linear-gradient(236deg, #fbff00f1, 50%, transparent);
 }
 
 .left {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background: linear-gradient(19deg, #00fff7cb, 70%, transparent);
+
+}
+
+#team-one-input, #team-two-input {
+    width: 80%;
+    font-size: 1rem;
+    border: none;
+}
+
+.game.current {
+    font-weight: 500;
+}
+
+.form-and-buttons {
+    border: none;
+}
+
+#name-form-button, #team-one-add-button, #team-two-add-button, #team-one-subtract-button, #team-two-subtract-button, #finish-game-button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 1px 10px -6px rgba(0,0,0,0.45);
+}
+
+#name-form-button:hover,
+#team-one-add-button:hover,
+#team-two-add-button:hover,
+#team-one-subtract-button:hover,
+#team-two-subtract-button:hover,
+#finish-game-button:hover {
+    cursor: pointer;
+}
+
+#name-form-button:active,
+#team-one-add-button:active,
+#team-two-add-button:active,
+#team-one-subtract-button:active,
+#team-two-subtract-button:active,
+#finish-game-button:active {
+    transform: translateY(2px);
+    background-color: rgba(0, 0, 0, 0.137);
+}
+
+
+
+.left h2 {
+    box-shadow: 0px 10px 10px -12px;
+}
+
+.right h2 {
+    box-shadow: 0px 15px 7px -16px;
 }
