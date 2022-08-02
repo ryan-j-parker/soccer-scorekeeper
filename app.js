@@ -123,5 +123,6 @@ function displayAllGames() {
         const gameEl = renderGame(game.name1, game.name2, game.score1, game.score2);
         pastGamesEl.append(gameEl);
     }
-    
+
+    renderGame(name1, name2, score1, score2);
 }
